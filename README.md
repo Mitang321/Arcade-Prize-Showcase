@@ -1,10 +1,15 @@
-# Showcase Your Prize Won in the ARCADE
+## Arcade-Prize-Showcase
 
 ## Live Preview
 
 [Live Preview](https://arcade-prize-showcase.vercel.app/)
 
 ## Overview
+
+The **Arcade-Prize-Showcase** app is a web application designed to display of prizes that you won during this Arcade Season. 
+
+
+## Features
 
 - **Create Post**: Users can create new posts to showcase their prizes won in the arcade.
 - **Edit Post**: Easily update the details or images of your posts.
