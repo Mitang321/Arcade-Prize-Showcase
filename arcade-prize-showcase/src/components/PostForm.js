@@ -53,6 +53,7 @@ function PostForm({ onClose, onSubmit }) {
             <input
               type="url"
               value={prizeImageUrl}
+              placeholder="Post Your Image to #cdn and past the link here"
               onChange={(e) => setPrizeImageUrl(e.target.value)}
               required
             />
