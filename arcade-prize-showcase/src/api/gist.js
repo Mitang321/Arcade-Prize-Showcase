@@ -2,7 +2,7 @@ import axios from "axios";
 
 const GIST_ID = "4d145da79b7646cd42d7f773c5fa2d3b";
 const GIST_FILE = "posts.json";
-const GITHUB_TOKEN = process.env.token;
+const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
 export const fetchGistContent = async () => {
   try {
@@ -29,7 +29,6 @@ export const updateGist = async (content) => {
       {
         headers: {
           Authorization: `token ${GITHUB_TOKEN}`,
-          "Content-Type": "application/json",
         },
       }
     );
