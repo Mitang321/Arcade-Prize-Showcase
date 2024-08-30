@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./PostForm.css";
 
-function PostForm({ onClose }) {
+function PostForm({ onClose, onSubmit }) {
   const [slackHandle, setSlackHandle] = useState("");
   const [profilePicUrl, setProfilePicUrl] = useState("");
   const [prizeImageUrl, setPrizeImageUrl] = useState("");
@@ -9,6 +9,15 @@ function PostForm({ onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (onSubmit) {
+      const newPost = {
+        slackHandle,
+        profilePicUrl,
+        prizeImageUrl,
+        description,
+      };
+      onSubmit(newPost);
+    }
     onClose();
   };
 

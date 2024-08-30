@@ -1,0 +1,40 @@
+.prize-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.prize-item {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 300px;
+  background-color: #f9f9f9;
+}
+
+.prize-image {
+  width: 100%;
+  height: auto;
+}
+
+.prize-details {
+  padding: 15px;
+  text-align: center;
+}
+
+.profile-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.slack-handle {
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.description {
+  color: #555;
+}
