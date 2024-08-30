@@ -1,22 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./PostForm.css";
 
-function PostForm({ onClose, onSubmit }) {
+function PostForm({ onClose, onSubmit, post }) {
   const [slackHandle, setSlackHandle] = useState("");
   const [profilePicUrl, setProfilePicUrl] = useState("");
   const [prizeImageUrl, setPrizeImageUrl] = useState("");
   const [description, setDescription] = useState("");
 
+  useEffect(() => {
+    if (post) {
+      setSlackHandle(post.slackHandle || "");
+      setProfilePicUrl(post.profilePicUrl || "");
+      setPrizeImageUrl(post.prizeImageUrl || "");
+      setDescription(post.description || "");
+    }
+  }, [post]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (onSubmit) {
-      const newPost = {
+      const updatedPost = {
+        ...post,
         slackHandle,
         profilePicUrl,
         prizeImageUrl,
         description,
       };
-      onSubmit(newPost);
+      onSubmit(updatedPost);
     }
     onClose();
   };
@@ -27,7 +37,7 @@ function PostForm({ onClose, onSubmit }) {
         <button className="close-button" onClick={onClose}>
           X
         </button>
-        <h2>Create a New Post</h2>
+        <h2>{post ? "Edit Post" : "Create a New Post"}</h2>
         <form onSubmit={handleSubmit}>
           <label>
             Slack Handle:
@@ -67,7 +77,7 @@ function PostForm({ onClose, onSubmit }) {
             ></textarea>
           </label>
           <button type="submit" className="submit-button">
-            Submit
+            {post ? "Update" : "Submit"}
           </button>
         </form>
       </div>

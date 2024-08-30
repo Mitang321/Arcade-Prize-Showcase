@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./PrizeGrid.css";
+import PostForm from "./PostForm";
 
-function PrizeGrid({ posts }) {
+function PrizeGrid({ posts, onEdit }) {
   const [selectedPost, setSelectedPost] = useState(null);
+  const [editingPost, setEditingPost] = useState(null);
 
   const handleImageClick = (post) => {
     setSelectedPost(post);
@@ -10,11 +12,23 @@ function PrizeGrid({ posts }) {
 
   const handleCloseDetails = () => {
     setSelectedPost(null);
+    setEditingPost(null);
+  };
+
+  const handleEditPost = (post) => {
+    setEditingPost(post);
+  };
+
+  const handleSubmit = (updatedPost) => {
+    if (onEdit) {
+      onEdit(updatedPost);
+    }
+    handleCloseDetails();
   };
 
   return (
     <div className="prize-grid">
-      {selectedPost ? (
+      {selectedPost && !editingPost ? (
         <div className="prize-details-overlay">
           <button onClick={handleCloseDetails} className="close-details-button">
             X
@@ -33,9 +47,21 @@ function PrizeGrid({ posts }) {
           )}
           <p className="slack-handle-detail">{selectedPost.slackHandle}</p>
           <p className="description-detail">{selectedPost.description}</p>
+          <button
+            onClick={() => handleEditPost(selectedPost)}
+            className="edit-button"
+          >
+            Edit
+          </button>
         </div>
+      ) : editingPost ? (
+        <PostForm
+          post={editingPost}
+          onClose={handleCloseDetails}
+          onSubmit={handleSubmit}
+        />
       ) : posts.length === 0 ? (
-        <p></p>
+        <p>No posts available</p>
       ) : (
         posts.map((post, index) => (
           <div key={index} className="prize-item">
@@ -47,7 +73,7 @@ function PrizeGrid({ posts }) {
                 onClick={() => handleImageClick(post)}
               />
             ) : (
-              <p></p>
+              <p>No image available</p>
             )}
           </div>
         ))

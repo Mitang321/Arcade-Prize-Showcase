@@ -10,7 +10,6 @@ function Home({ onNewPostClick }) {
       <button onClick={onNewPostClick} className="new-post-button">
         Create New Post
       </button>
-      <PrizeGrid posts={[]} />
     </div>
   );
 }
