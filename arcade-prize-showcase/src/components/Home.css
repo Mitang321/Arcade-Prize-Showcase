@@ -1,0 +1,19 @@
+.home {
+  background-color: #fbefd6;
+  color: #333;
+  text-align: center;
+  padding: 40px;
+  font-family: "Gaegu", cursive;
+  padding-top: 0px;
+}
+
+.home h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  margin-top: -400px;
+}
+
+.home p {
+  font-size: 2rem;
+  margin-top: -480px;
+}
