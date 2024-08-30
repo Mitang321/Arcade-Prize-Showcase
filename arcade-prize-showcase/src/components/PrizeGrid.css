@@ -12,10 +12,8 @@
 .prize-image {
   width: 100%;
   height: auto;
-  border: 1px solid #ccc;
   border-radius: 8px;
   object-fit: cover;
-  max-height: 300px;
 }
 
 .prize-details-overlay {
@@ -72,4 +70,17 @@
 
 .close-details-button:hover {
   color: #00afb3;
+}
+.edit-button {
+  background-color: #00afb3;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Gaegu", cursive;
+  font-size: 20px;
+}
+.edit-button:hover {
+  background-color: #009c9e;
 }

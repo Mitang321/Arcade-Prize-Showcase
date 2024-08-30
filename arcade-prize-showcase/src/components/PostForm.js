@@ -1,4 +1,6 @@
+// components/PostForm.js
 import React, { useState, useEffect } from "react";
+import { fetchGistContent, updateGist } from "../api/gist"; // Import the Gist API functions
 import "./PostForm.css";
 
 function PostForm({ onClose, onSubmit, post }) {
@@ -16,19 +18,37 @@ function PostForm({ onClose, onSubmit, post }) {
     }
   }, [post]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (onSubmit) {
-      const updatedPost = {
-        ...post,
-        slackHandle,
-        profilePicUrl,
-        prizeImageUrl,
-        description,
-      };
-      onSubmit(updatedPost);
+
+    const newPost = {
+      slackHandle,
+      profilePicUrl,
+      prizeImageUrl,
+      description,
+    };
+
+    try {
+      // Fetch existing posts
+      const existingPosts = await fetchGistContent();
+
+      // Update or add the post
+      const updatedPosts = post
+        ? existingPosts.map((p) =>
+            p.slackHandle === post.slackHandle ? newPost : p
+          )
+        : [...existingPosts, newPost];
+
+      // Update Gist with new posts
+      await updateGist(updatedPosts);
+
+      if (onSubmit) {
+        onSubmit(newPost);
+      }
+      onClose();
+    } catch (error) {
+      console.error("Error handling post submission:", error);
     }
-    onClose();
   };
 
   return (
@@ -63,7 +83,7 @@ function PostForm({ onClose, onSubmit, post }) {
             <input
               type="url"
               value={prizeImageUrl}
-              placeholder="Post Your Image to #cdn and past the link here"
+              placeholder="Post Your Image to #cdn and paste the link here"
               onChange={(e) => setPrizeImageUrl(e.target.value)}
               required
             />

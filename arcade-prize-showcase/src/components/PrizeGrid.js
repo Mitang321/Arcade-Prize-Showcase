@@ -1,10 +1,26 @@
-import React, { useState } from "react";
-import "./PrizeGrid.css";
+// components/PrizeGrid.js
+import React, { useState, useEffect } from "react";
+import { fetchGistContent } from "../api/gist"; // Import the Gist API functions
 import PostForm from "./PostForm";
+import "./PrizeGrid.css";
 
-function PrizeGrid({ posts, onEdit }) {
+function PrizeGrid() {
+  const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const [editingPost, setEditingPost] = useState(null);
+
+  useEffect(() => {
+    const loadPosts = async () => {
+      try {
+        const fetchedPosts = await fetchGistContent();
+        setPosts(fetchedPosts);
+      } catch (error) {
+        console.error("Error loading posts:", error);
+      }
+    };
+
+    loadPosts();
+  }, []);
 
   const handleImageClick = (post) => {
     setSelectedPost(post);
@@ -20,9 +36,11 @@ function PrizeGrid({ posts, onEdit }) {
   };
 
   const handleSubmit = (updatedPost) => {
-    if (onEdit) {
-      onEdit(updatedPost);
-    }
+    setPosts(
+      posts.map((p) =>
+        p.slackHandle === updatedPost.slackHandle ? updatedPost : p
+      )
+    );
     handleCloseDetails();
   };
 
